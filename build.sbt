@@ -1,7 +1,7 @@
 name := "fs2-aws"
 organization in ThisBuild := "io.github.dmateusp"
 
-scalaVersion := "2.12.9"
+scalaVersion := "2.13.1"
 
 scalacOptions in ThisBuild ++= Seq(
   "-target:jvm-1.8",
@@ -25,11 +25,15 @@ lazy val root = (project in file("."))
 lazy val `fs2-aws`         = (project in file("fs2-aws"))
 lazy val `fs2-aws-testkit` = (project in file("fs2-aws-testkit")).dependsOn(`fs2-aws`)
 
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.10")
+addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full)
 
 // publish
-publishTo in ThisBuild := Some(
-  "Sonatype Nexus" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
+publishTo in ThisBuild := {
+  if (isSnapshot.value)
+    Some("AvantStay Snapshots" at "https://maven.avantstay.rocks/repository/avantstay-snapshots/")
+  else Some("AvantStay Releases" at "https://maven.avantstay.rocks/repository/avantstay-releases/")
+}
+credentials += Credentials(Path.userHome / ".sbt" / "credentials")
 
 licenses in ThisBuild := Seq(
   "MIT" -> url("https://github.com/dmateusp/fs2-aws/blob/master/LICENSE"))
