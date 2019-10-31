@@ -3,7 +3,7 @@ package fs2.aws.kinesis
 import fs2.Chunk
 import software.amazon.kinesis.lifecycle.events._
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.duration.FiniteDuration
 
 /** Concrete implementation of the AWS RecordProcessor interface.
@@ -31,6 +31,6 @@ private[aws] class ChunkedRecordProcessor(cb: Chunk[CommittableRecord] => Unit,
           processRecordsInput.checkpointer()
         )
       }
-    cb(Chunk(batch: _*))
+    cb(Chunk(batch.toSeq: _*))
   }
 }

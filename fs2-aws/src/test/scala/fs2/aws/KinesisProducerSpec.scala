@@ -10,11 +10,11 @@ import fs2.aws.kinesis.publisher._
 import fs2.aws.utils.KinesisStub
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.ExecutionContext
 
 class KinesisProducerSpec extends FlatSpec with Matchers with BeforeAndAfterEach {
-  override def beforeEach {
+  override def beforeEach: Unit = {
     KinesisStub.clear()
   }
 
@@ -95,7 +95,7 @@ class KinesisProducerSpec extends FlatSpec with Matchers with BeforeAndAfterEach
 
     output.size should be(1)
     output.head.isLeft should be(true)
-    output.head.left.get.getMessage should be("couldn't connect to kinesis")
+    output.head.swap.getOrElse(throw new Error()).getMessage should be("couldn't connect to kinesis")
   }
 
   "error thrown when invoking writeToKinesis_" should "return an error in the stream" in new KinesisProducerTestContext {

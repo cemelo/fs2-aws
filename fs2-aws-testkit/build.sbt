@@ -1,6 +1,6 @@
 name := "fs2-aws-testkit"
 
-scalaVersion := "2.12.9"
+scalaVersion := "2.13.1"
 
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 

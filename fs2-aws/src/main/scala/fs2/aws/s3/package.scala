@@ -9,7 +9,7 @@ import fs2.{Chunk, Pull, Stream}
 import fs2.io.readInputStream
 import fs2.aws.internal._
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.ExecutionContext
 
 package object s3 {
@@ -23,7 +23,7 @@ package object s3 {
         .bracket[F, Either[Throwable, InputStream]](s3Client.getObjectContentOrError(
           new GetObjectRequest(bucket, key).withRange(offset, offset + chunkSize))) {
           //todo: properly log the error
-          case Left(e)  => F.delay(() => e.printStackTrace())
+          case Left(e)  => F.delay(e.printStackTrace())
           case Right(s) => F.delay(s.close())
         }
         .pull

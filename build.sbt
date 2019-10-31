@@ -14,7 +14,6 @@ scalacOptions in ThisBuild ++= Seq(
   "-language:implicitConversions", // allow use of implicit conversions
   "-Xlint", // enable handy linter warnings
   "-Xfatal-warnings", // turn compiler warnings into errors
-  "-Ypartial-unification" // allow the compiler to unify type constructors of different arities
 )
 lazy val root = (project in file("."))
   .aggregate(`fs2-aws`, `fs2-aws-testkit`)
@@ -33,7 +32,8 @@ publishTo in ThisBuild := {
     Some("AvantStay Snapshots" at "https://maven.avantstay.rocks/repository/avantstay-snapshots/")
   else Some("AvantStay Releases" at "https://maven.avantstay.rocks/repository/avantstay-releases/")
 }
-credentials += Credentials(Path.userHome / ".sbt" / "credentials")
+
+credentials in ThisBuild += Credentials(Path.userHome / ".sbt" / "credentials")
 
 licenses in ThisBuild := Seq(
   "MIT" -> url("https://github.com/dmateusp/fs2-aws/blob/master/LICENSE"))

@@ -4,13 +4,13 @@ name := "fs2-aws"
 coverageMinimum := 40
 coverageFailOnMinimum := true
 
-scalaVersion := "2.12.9"
+scalaVersion := "2.13.1"
 
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 val fs2Version    = "2.0.1"
 val AwsSdkVersion = "1.11.650"
-val cirisVersion  = "0.12.1"
+val cirisVersion  = "0.13.0-RC1"
 
 libraryDependencies ++= Seq(
   "co.fs2"                  %% "fs2-core"                     % fs2Version,
